@@ -22,7 +22,7 @@ public:
 
 	vector<Produit*>  obtenirContenuPanier()const;
 	int obtenirNombreContenu() const;
-	double obtenirTotalApayer() const;
+	double obtenirTotalApayer() ;
 
 	void modifierTotalAPayer(double totalAPayer);
 

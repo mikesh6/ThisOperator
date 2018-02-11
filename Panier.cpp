@@ -8,10 +8,9 @@
 #include "Panier.h"
 
 Panier::Panier() 
-	
-{
+	{
 
-
+	totalAPayer_ = 0;
 }
 
 Panier::~Panier()
@@ -19,13 +18,6 @@ Panier::~Panier()
 }
 
 // methodes d'accès
-/*
-Produit **  Panier::obtenirContenuPanier()const
-{
-	return ->contenuPanier_;
-}
-\*/
-
 
 vector<Produit*> Panier::obtenirContenuPanier() const
 {
@@ -37,8 +29,15 @@ int Panier::obtenirNombreContenu() const
 	return contenuPanier_.size();
 }
 
-double Panier::obtenirTotalApayer() const
+double Panier::obtenirTotalApayer() 
 {
+
+	for (int i = 0; i < this->obtenirNombreContenu(); i++) {
+
+		totalAPayer_ += this->contenuPanier_[i]->obtenirPrix();
+	}
+
+
 	return totalAPayer_;
 }
 
@@ -62,6 +61,7 @@ Panier Panier::ajouter(Produit * prod)
 void Panier::livrer()
 {	
 	this->contenuPanier_.clear();
+	cout << "Livere panier" << endl;
 
 }
 
@@ -73,7 +73,24 @@ Produit * Panier::trouverProduitPlusCher()
 {
 	// TODO: Implementez la methode
 
-	return 0;
+	
+	Produit *cher = new Produit();
+	double max = 0; 
+
+	for (int i = 0; i < this->obtenirNombreContenu(); i++) {
+
+		if (this->contenuPanier_[i]->obtenirPrix() > max) {
+
+			max = contenuPanier_[i]->obtenirPrix();
+			cher = contenuPanier_[i];
+
+		 }
+	}
+
+	
+	return cher;
+	
+	
 }
 
 ostream & operator<<(ostream & os,  Panier& panier)
@@ -81,7 +98,7 @@ ostream & operator<<(ostream & os,  Panier& panier)
 	// TODO: insert return statement here
 	
 
-	os << "----> total a payer : " << panier.totalAPayer_ << endl;
+	os << "----> total a payer : " << panier.obtenirTotalApayer() << "$"<< endl;
 
 	for (int i = 0; i < panier.contenuPanier_.size(); i++) {
 		os << "----> ";

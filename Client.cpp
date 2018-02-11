@@ -19,26 +19,19 @@ Client::Client(const string&  nom, const string& prenom, int identifiant, const 
 {
 }
 
-Client::Client(const Client & client):
+Client::Client(const Client & client) :
 	nom_(client.nom_),
 	prenom_(client.prenom_),
 	identifiant_(client.identifiant_),
 	codePostal_(client.codePostal_),
-	dateNaissance_(client.dateNaissance_)
+	dateNaissance_(client.dateNaissance_),
+	monPanier_(nullptr)
+	
+	
 	
 {
 
-	Panier *newPanier =  new Panier();
-
-	for (int i = 0; i < client.obtenirPanier()->obtenirNombreContenu(); i++) {
-
-		newPanier->obtenirContenuPanier()[i] = client.monPanier_->obtenirContenuPanier()[i];
- 
-	}
-
-
-
-	monPanier_ = newPanier;
+	cout << "Copy contrcutor has been called " << endl;
 
 }
 
@@ -48,6 +41,7 @@ Client::~Client()
 {
 	if (monPanier_ != nullptr)
 		delete monPanier_;
+	cout << "Destuctor of mon_panier" << endl;
 }
 
 // Methodes d'acces
